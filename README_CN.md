@@ -55,7 +55,7 @@ g++ -std=c++11 main.cpp pksim.cpp -o sim
 
 ### 1. `realE2`
 
-计算酯类折算为雌二醇（E2）的分子量系数。
+计算酯类折算为雌二醇（E2）的分子量系数
 
 ```cpp
 double realE2(string ester);
@@ -71,7 +71,7 @@ double realE2(string ester);
 
 ### 2. `utility`
 
-计算生物利用度。
+计算生物利用度
 
 ```cpp
 double utility(string way, string ester, double xishou = 0, string buwei = "");
@@ -90,7 +90,7 @@ double utility(string way, string ester, double xishou = 0, string buwei = "");
 
 ### 3. `calculatePK`
 
-计算药代动力学参数（F、k1_f、k1_s、k2、k3、frac_f、r）。
+计算药代动力学参数（F、k1_f、k1_s、k2、k3、frac_f、r）
 
 ```cpp
 PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, string buwei = "");
@@ -110,7 +110,7 @@ PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, s
 
 ### 4. `oneCompAmount`
 
-一室模型单次给药的血药浓度计算。
+一室模型单次给药的血药浓度计算
 
 ```cpp
 double oneCompAmount(double tau, double doseMG, double F, double ka, double ke);
@@ -130,7 +130,7 @@ double oneCompAmount(double tau, double doseMG, double F, double ka, double ke);
 
 ### 5. `runSimulation`
 
-**主入口函数。** 运行完整模拟，返回时间-浓度曲线和 AUC。
+**主入口函数。** 运行完整模拟，返回时间-浓度曲线和 AUC
 
 ```cpp
 SimulationResult runSimulation(vector<DoseEvent>& events, double weight);
@@ -147,7 +147,7 @@ SimulationResult runSimulation(vector<DoseEvent>& events, double weight);
 
 ### 6. `interpolateConcentration`
 
-从模拟结果中插值获取任意时间点的血药浓度。
+从模拟结果中插值获取任意时间点的血药浓度
 
 ```cpp
 double interpolateConcentration(const SimulationResult& sim, double hour);

@@ -6,7 +6,7 @@ The main branch only provides core computation code and does not include UI, etc
 This project is primarily for practice purposes, hence the functionality is relatively basic. You can use this as a foundation to add or modify features on your own
 >
 Regarding the pharmacokinetic model, please refer to [Model Description](MODEL.md)
-# E2 Pharmacokinetic Simulation Engine
+# E2 Pharmacokinetic Simulation Engine/yuE2logger
 ## Introduction
 A pharmacokinetic simulation library for estradiol (E2) and its esters (EB, EV, EC, EN), implemented in C++, supports the calculation of blood drug concentration for multiple administration routes
 - Supported administration routes: oral (koufu), sublingual (shexia), gel application (ningjiao), patch (tiepian), injection (zhushe)

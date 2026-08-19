@@ -5,7 +5,7 @@ The main branch only provides core computation code and does not include UI, etc
 > 
 This project is primarily for practice purposes, hence the functionality is relatively basic. You can use this as a foundation to add or modify features on your own
 >
-Regarding the pharmacokinetic model, please refer to [Model Description](MODEL_CN.md)
+Regarding the pharmacokinetic model, please refer to [Model Description](MODEL.md)
 # E2 Pharmacokinetic Simulation Engine
 ## Introduction
 A pharmacokinetic simulation library for estradiol (E2) and its esters (EB, EV, EC, EN), implemented in C++, supports the calculation of blood drug concentration for multiple administration routes

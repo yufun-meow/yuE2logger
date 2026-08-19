@@ -124,7 +124,6 @@ The r parameter supports two usage modes, with the caller determining the meanin
 > Mode 2 (Total Dose Mode): Set r to 0, set the "dose" field in DoseEvent to the total patch dose (unit: mg), and set "wearDuration" to the duration of wear. In this mode, the simulation treats the total dose as a one-time release and eliminates it using a one-compartment model
 
 The difference between the two modes lies in the shape of the drug release curve: the rate mode simulates continuous and constant blood entry, while the total dose mode simulates the instantaneous release of the entire dose from the patch
----
 
 ### 4.  `oneCompAmount`
 

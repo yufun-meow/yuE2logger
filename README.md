@@ -1,6 +1,6 @@
 - [中文版](README_CN.md)
 - English
-# ! Attention!
+# !Attention!
 The main branch only provides core computation code and does not include UI, etc. You can create your own UI
 > 
 This project is primarily for practice purposes, hence the functionality is relatively basic. You can use this as a foundation to add or modify features on your own

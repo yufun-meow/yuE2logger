@@ -58,7 +58,7 @@ Copy `pksim.cpp` and `pksim.h` into your project, include the header file, and y
 | `dd` | scrotum |
 | Other values | Other parts (inner thigh/inner arm, etc.) |
 ---
-#### ！ Special note!
+#### !Special note!
 The absorption rate of the scrotum here is ten times higher than that of other parts, which is inferred from the absorption rate data of testosterone gel and may not be accurate!
 ## Function Description
 

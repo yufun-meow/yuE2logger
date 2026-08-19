@@ -116,7 +116,14 @@ PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, s
 | `buwei` | string | Gel site: dd (scrotum) or other |
 
 **Return value:** `PK` struct
+#### Special Note on the r Parameter of Patch Administration
+The r parameter supports two usage modes, with the caller determining the meaning of the passed-in value based on the scenario:
 
+> Mode 1 (Rate Mode): Set r as the release rate of the patch (unit: mg/day), and set the dose field in DoseEvent to the same value as r, while setting wearDuration to the duration of wear. In this mode, the simulation calculates based on constant release rate
+>
+Mode 2 (Total Dose Mode): Set r to 0, set the "dose" field in DoseEvent to the total patch dose (unit: mg), and set "wearDuration" to the duration of wear. In this mode, the simulation treats the total dose as a one-time release and eliminates it using a one-compartment model
+>
+The difference between the two modes lies in the shape of the drug release curve: the rate mode simulates continuous and constant blood entry, while the total dose mode simulates the instantaneous release of the entire dose from the patch
 ---
 
 ### 4.  `oneCompAmount`

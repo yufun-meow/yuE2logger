@@ -1,5 +1,5 @@
 - [中文版](README_CN.md)
-- [English]
+- English
 # E2 Pharmacokinetic Simulation Engine
 
 > **Note:** The `main` branch provides only the core calculation code, with no UI included. You are free to build your own UI.

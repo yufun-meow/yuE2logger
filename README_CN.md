@@ -51,6 +51,115 @@ g++ -std=c++11 main.cpp pksim.cpp -o sim
 | `EC`	| 环戊丙酸雌二醇 |
 | `EN` | 庚酸雌二醇 |
 ---
+## 函数说明
+
+### 1. `realE2`
+
+计算酯类折算为雌二醇（E2）的分子量系数。
+
+```cpp
+double realE2(string ester);
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `ester` | string | 酯类名称：E2 / EB / EV / EC / EN |
+
+**返回值：** 折算系数（double）
+
+---
+
+### 2. `utility`
+
+计算生物利用度。
+
+```cpp
+double utility(string way, string ester, double xishou = 0, string buwei = "");
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `way` | string | 给药途径 |
+| `ester` | string | 酯类名称 |
+| `xishou` | double | 舌下吸收比例（仅 shexia 用） |
+| `buwei` | string | 凝胶部位：dd（大腿）或其他 |
+
+**返回值：** 生物利用度（double）
+
+---
+
+### 3. `calculatePK`
+
+计算药代动力学参数（F、k1_f、k1_s、k2、k3、frac_f、r）。
+
+```cpp
+PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, string buwei = "");
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `way` | string | 给药途径 |
+| `ester` | string | 酯类名称 |
+| `xishou` | double | 舌下吸收比例（仅 shexia 用） |
+| `r` | double | 贴片释放速率，单位 mg/天（仅 tiepian 用） |
+| `buwei` | string | 凝胶部位：dd（大腿）或其他 |
+
+**返回值：** `PK` 结构体
+
+---
+
+### 4. `oneCompAmount`
+
+一室模型单次给药的血药浓度计算。
+
+```cpp
+double oneCompAmount(double tau, double doseMG, double F, double ka, double ke);
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `tau` | double | 给药后经过的时间（小时） |
+| `doseMG` | double | 剂量（mg） |
+| `F` | double | 生物利用度 |
+| `ka` | double | 吸收速率常数 |
+| `ke` | double | 消除速率常数 |
+
+**返回值：** 血药浓度（double）
+
+---
+
+### 5. `runSimulation`
+
+**主入口函数。** 运行完整模拟，返回时间-浓度曲线和 AUC。
+
+```cpp
+SimulationResult runSimulation(vector<DoseEvent>& events, double weight);
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `events` | vector<DoseEvent>& | 给药事件列表（自动按时间排序） |
+| `weight` | double | 体重（kg） |
+
+**返回值：** `SimulationResult` 结构体（包含曲线 + AUC）
+
+---
+
+### 6. `interpolateConcentration`
+
+从模拟结果中插值获取任意时间点的血药浓度。
+
+```cpp
+double interpolateConcentration(const SimulationResult& sim, double hour);
+```
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| `sim` | const SimulationResult& | `runSimulation` 返回的结果 |
+| `hour` | double | 目标时间点（小时） |
+
+**返回值：** 该时间点的血药浓度（double）
+
 ## 许可证
 GPL v3
 

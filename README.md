@@ -1,4 +1,4 @@
-- [中文版](README.md)
+- [中文版](README_CN.md)
 - English
 # ! Attention!
 The main branch only provides core computation code and does not include UI, etc. You can create your own UI

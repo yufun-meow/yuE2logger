@@ -41,7 +41,7 @@ Copy `pksim.cpp` and `pksim.h` into your project, include the header file, and y
 | `koufu` | Oral administration |
 | `shexia` | sublingual administration |
 | `ningjiao` | gel application |
-| `tiepian`	| SMD (Surface Mounted Device) |
+| `tiepian`	| patch |
 | `zhushe` | injection |
 ---
 ### Ester parameters

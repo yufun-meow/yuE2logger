@@ -5,6 +5,8 @@
 > **Note:** The `main` branch provides only the core calculation code, with no UI included. You are free to build your own UI.
 >
 > This project is for practice purposes, so the functionality is basic. Feel free to extend or modify it as needed.
+>
+> For more details about this pharmacokinetic model, check out [Model](MODEL.md)
 
 ---
 

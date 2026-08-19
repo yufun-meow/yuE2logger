@@ -51,6 +51,15 @@ g++ -std=c++11 main.cpp pksim.cpp -o sim
 | `EC`	| 环戊丙酸雌二醇 |
 | `EN` | 庚酸雌二醇 |
 ---
+### 凝胶部位参数（仅 ningjiao 用）
+
+| 参数 | 说明 |
+|------|------|
+| `dd` | 阴囊 |
+| 其他值 | 其他部位（大腿内侧/大臂内侧等） |
+---
+#### ！特别说明！
+此处阴囊吸收率为其它部位的十倍，该数值由睾酮凝胶的吸收率数据推断而来，不一定准确！
 ## 函数说明
 
 ### 1. `realE2`
@@ -82,7 +91,7 @@ double utility(string way, string ester, double xishou = 0, string buwei = "");
 | `way` | string | 给药途径 |
 | `ester` | string | 酯类名称 |
 | `xishou` | double | 舌下吸收比例（仅 shexia 用） |
-| `buwei` | string | 凝胶部位：dd（大腿）或其他 |
+| `buwei` | string | 凝胶部位：dd（阴囊）或其他 |
 
 **返回值：** 生物利用度（double）
 
@@ -102,7 +111,7 @@ PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, s
 | `ester` | string | 酯类名称 |
 | `xishou` | double | 舌下吸收比例（仅 shexia 用） |
 | `r` | double | 贴片释放速率，单位 mg/天（仅 tiepian 用） |
-| `buwei` | string | 凝胶部位：dd（大腿）或其他 |
+| `buwei` | string | 凝胶部位：dd（阴囊）或其他 |
 
 **返回值：** `PK` 结构体
 

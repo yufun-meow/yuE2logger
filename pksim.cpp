@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include <windows.h>
 #include <iomanip>
 #include <vector>    
 #include <algorithm>

@@ -1,86 +1,175 @@
-- [中文版](README_CN.md)
-- English
+- Chinese version
+- [English](README.md)
+# ! Attention!
+The main branch only provides core computation code and does not include UI, etc. You can create your own UI
+> 
+This project is primarily for practice purposes, hence the functionality is relatively basic. You can use this as a foundation to add or modify features on your own
+>
+Regarding the pharmacokinetic model, please refer to [Model Description](MODEL_CN.md)
 # E2 Pharmacokinetic Simulation Engine
-
-> **Note:** The `main` branch provides only the core calculation code, with no UI included. You are free to build your own UI.
->
-> This project is for practice purposes, so the functionality is basic. Feel free to extend or modify it as needed.
->
-> For more details about this pharmacokinetic model, check out [Model](MODEL.md)
-
----
-
 ## Introduction
-
-A C++ library for simulating the pharmacokinetics of estradiol (E2) and its esters (EB, EV, EC, EN), supporting multiple routes of administration.
-
-### Features
-
-- Supported routes: oral (`koufu`), sublingual (`shexia`), gel (`ningjiao`), patch (`tiepian`), injection (`zhushe`)
+A pharmacokinetic simulation library for estradiol (E2) and its esters (EB, EV, EC, EN), implemented in C++, supports the calculation of blood drug concentration for multiple administration routes
+- Supported administration routes: oral (koufu), sublingual (shexia), gel application (ningjiao), patch (tiepian), injection (zhushe)
 - Supported esters: E2, EB, EV, EC, EN
-- Outputs concentration-time curve
-- Calculates AUC (Area Under Curve)
-- Supports multi-dose time series simulation
-
----
-
-## Compile
-
+- Output time-concentration curve
+- Calculate AUC (Area Under the Curve)
+- Support time series simulation of multiple drug administration events
+## Compilation
 Place `pksim.cpp` and `pksim.h` in your project and compile them together with your main program:
 ```bash
 g++ -std=c++11 main.cpp pksim.cpp -o sim
 ```
-## Files
-
-| File | Description |
-|------|-------------|
-| `pksim.h` | Header file containing data structure definitions and function declarations |
-| `pksim.cpp` | Core implementation code |
-
----
-
-## Data Structures
-
-| Struct | Description |
-|--------|-------------|
+## File Description
+- `pksim.h` header file, containing data structure definitions and function declarations
+- `pksim.cpp` core implementation code
+## Data structure
+| Structure | Description |
+|--------|---------------------|
 | `DoseEvent` | Single dose event |
 | `PK` | Pharmacokinetic parameters |
-| `GridPoint` | Time-concentration point |
+| `GridPoint` | Time-Concentration Point |
 | `SimulationResult` | Simulation result (curve + AUC) |
-
 ---
-
-## Usage
-
-Copy `pksim.cpp` and `pksim.h` into your project and include the header file.
-## Parameter Reference
-
-### Route Parameters
-
+## How to Use
+Copy `pksim.cpp` and `pksim.h` into your project, include the header file, and you can use it.
+## Parameter Description
+### Drug administration route parameters
 | Parameter | Description |
-|-----------|-------------|
-| `koufu` | Oral |
-| `shexia` | Sublingual |
-| `ningjiao` | Gel |
-| `tiepian` | Patch |
-| `zhushe` | Injection |
-
+|--------|---------------------|
+| `koufu` | Oral administration |
+| `shexia` | sublingual administration |
+| `ningjiao` | gel application |
+| `tiepian`	| SMD (Surface Mounted Device) |
+| `zhushe` | injection |
 ---
-
-### Ester Parameters
-
+### Ester parameters
 | Parameter | Description |
-|-----------|-------------|
+|--------|---------------------|
 | `E2` | Estradiol |
-| `EB` | Estradiol Benzoate |
-| `EV` | Estradiol Valerate |
-| `EC` | Estradiol Cypionate |
-| `EN` | Estradiol Enanthate |
+| `EB` | estradiol benzoate |
+| `EV` | Estradiol valerate |
+| `EC`	| Estradiol Cyclopentylpropionate |
+| `EN` | Estradiol valerate |
+---
+### Gel part parameters (only for ningjiao)
+
+| Parameter | Description |
+|------|------|
+| `dd` | scrotum |
+| Other values | Other parts (inner thigh/inner arm, etc.) |
+---
+#### ！ Special note!
+The absorption rate of the scrotum here is ten times higher than that of other parts, which is inferred from the absorption rate data of testosterone gel and may not be accurate!
+## Function Description
+
+### 1.  `realE2`
+
+Calculate the molecular weight coefficient of esters converted to estradiol (E2)
+
+```cpp
+double realE2(string ester);
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `ester` | string | Ester names: E2 / EB / EV / EC / EN |
+
+**Return value:** Conversion factor (double)
 
 ---
+
+### 2.  `utility`
+
+Calculate bioavailability
+
+```cpp
+double utility(string way, string ester, double xishou = 0, string buwei = "");
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `way` | string | Route of administration |
+| `ester` | string | Ester name |
+| `xishou` | double | Sublingual absorption ratio (only for shexia) |
+| `buwei` | string | Gel site: dd (scrotum) or other |
+
+**Return value:** Bioavailability (double)
+
+---
+
+### 3.  `calculatePK`
+
+Calculate pharmacokinetic parameters (F, k1_f, k1_s, k2, k3, frac_f, r)
+
+```cpp
+PK calculatePK(string way, string ester = "", double xishou = 0, double r = 0, string buwei = "");
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `way` | string | route of administration |
+| `ester` | string | Ester name |
+| `xishou` | double | Sublingual absorption ratio (only for shexia) |
+| `r` | double | Patch release rate, in mg/day (only used for tiepian) |
+| `buwei` | string | Gel site: dd (scrotum) or other |
+
+**Return value:** `PK` struct
+
+---
+
+### 4.  `oneCompAmount`
+
+Calculation of blood drug concentration for a single dose in a one-compartment model
+
+```cpp
+double oneCompAmount(double tau, double doseMG, double F, double ka, double ke);
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `tau` | double | Time elapsed after administration (hours) |
+| `doseMG` | double | Dose (mg) |
+| `F` | double | Bioavailability |
+| `ka` | double | Absorption rate constant |
+| `ke` | double | elimination rate constant |
+
+**Return value:** Blood drug concentration (double)
+
+---
+
+### 5.  `runSimulation`
+
+**Main entry function.** Run the complete simulation and return the time-concentration curve and AUC
+
+```cpp
+SimulationResult runSimulation(vector<DoseEvent>& events, double weight);
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `events` | vector<DoseEvent>& | List of dosing events (automatically sorted by time) |
+| `weight` | double | Weight (kg) |
+
+**Return value:** `SimulationResult` struct (including curve + AUC)
+
+---
+
+### 6.  `interpolateConcentration`
+
+Interpolate from the simulation results to obtain the blood drug concentration at any given time point
+
+```cpp
+double interpolateConcentration(const SimulationResult& sim, double hour);
+```
+
+| Parameter | Type | Description |
+|------|------|------|
+| `sim` | const SimulationResult& | The result returned by `runSimulation` |
+| `hour` | double | Target time point (hour) |
+
+**Return value:** The plasma drug concentration at this time point (double)
 
 ## License
-
 GPL v3
 
-See [LICENSE](LICENSE) for details.
+Please refer to [LICENSE](LICENSE)
